@@ -15,11 +15,11 @@ $(LIB).$(MAJ).$(MINOR): grt.o
 	ln -sf $(LIB).$(MAJ).$(MINOR) $(LIB).$(MAJ)
 	ln -sf $(LIB).$(MAJ) $(LIB)
 
-demo: demo.c
-	LD_LIBRARY_PATH=. gcc -L. -o $@ $^ -lgrt
+demo: demo.c $(LIB).$(MAJ).$(MINOR)
+	LD_LIBRARY_PATH=. gcc -L. -o $@ demo.c -l$(LIBNAME)
 
 .PHONY: run
-run:
+run: demo
 	LD_LIBRARY_PATH=. ./demo
 
 .PHONY: clean
